@@ -1,3 +1,4 @@
+import os
 
 class Test:
     def __init__(self, name):
@@ -5,7 +6,10 @@ class Test:
         self.testItems = []
         self.variables = {}
 
-    def addTestItem(self, testItem):
+    def getName(self):
+        return self.name
+
+    def addItem(self, testItem):
         self.testItems.append(testItem)
 
     def generate(self):
@@ -17,12 +21,16 @@ class Test:
 
 
 class TestGenerator:
-    def __init__(self, test_obj):
+    def __init__(self, test_obj, dir_name = "tests"):
         self.test_obj = test_obj
+        self.dir_name = dir_name
 
     def generate(self, number):
+        if not os.path.exists(self.dir_name):
+            os.makedirs(self.dir_name)
+
         for i in range(number):
-            f = open("tests/{self.test_obj.getName()}{i}.in", "w")
+            f = open(f"tests/{self.test_obj.getName()}{i}.in", "w")
             f.write(self.test_obj.generate())
             f.close()
 

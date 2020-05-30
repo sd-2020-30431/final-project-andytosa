@@ -41,7 +41,7 @@ class Variable(TestItem):
         self.value = value
     
     def generate(self):
-        return f'{self.value} '
+        return f'{self.value}\n'
 
     def toString(self):
         return f'{self.name}: {self.value}'
@@ -61,7 +61,7 @@ class RandomVariable(Variable):
     def generate(self):
         a, b = self.interval
         self.value = random.randint(a, b)
-        return f'{self.value} '
+        return f'{self.value}\n'
 
     def toString(self):
         return f'{self.name}: [{self.interval[0]}, {self.interval[1]}]'
@@ -77,14 +77,14 @@ class RandomArray(TestItem):
     def generate(self):
         res = ""
         self.arr = []
-        self.var.generate()
+        #self.var.generate()
         for i in range(self.var.getValue()):
             a, b = self.interval
             val = random.randint(a, b)
             self.arr.append(val)
             res += f'{val} '
-
-        return res
+        
+        return res + '\n'
 
     def toString(self):
         return f'Array len {self.var.getValue()} vals {self.interval}'
