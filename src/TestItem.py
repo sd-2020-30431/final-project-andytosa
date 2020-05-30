@@ -1,10 +1,38 @@
 import random
 
+
 class TestItem:
     def generate(self):
         pass
     def toString(self):
         pass
+
+
+
+class RepeatContainer(TestItem):
+    def __init__(self, var):
+        self.var = var
+        self.testItems = []
+
+    def addItem(self, testItem):
+        self.testItems.append(testItem)
+
+    def generate(self):
+        res = ""
+        for _ in range(self.var.getValue()):
+            for ti in self.testItems:
+                res += ti.generate()
+
+        return res
+
+    def toString():
+        res = "Repeat:\n"
+        for _ in range(self.var.getValue()):
+            for ti in self.testItems:
+                res += ti.toString()
+
+        return res
+
 
 
 class Variable(TestItem):
@@ -21,6 +49,8 @@ class Variable(TestItem):
     def getValue(self):
         return self.value
 
+
+
 class RandomVariable(Variable):
     def __init__(self, name, interval):
         a, b = interval
@@ -35,6 +65,8 @@ class RandomVariable(Variable):
 
     def toString(self):
         return f'{self.name}: [{self.interval[0]}, {self.interval[1]}]'
+
+
 
 class RandomArray(TestItem):
     def __init__(self, var, interval):
