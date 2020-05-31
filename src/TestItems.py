@@ -4,7 +4,7 @@ import random
 class TestItem:
     def generate(self):
         pass
-    def toString(self):
+    def __str__(self):
         pass
 
 
@@ -26,11 +26,11 @@ class RepeatContainer(TestItem):
 
         return res
 
-    def toString(self):
+    def __str__(self):
         res = f"Repeat (self.name):\n"
         for _ in range(self.var.getValue()):
             for ti in self.testItems:
-                res += ti.toString()
+                res += ti.__str__()
 
         return res
 
@@ -44,7 +44,7 @@ class Variable(TestItem):
     def generate(self):
         return f'{self.value}\n'
 
-    def toString(self):
+    def __str__(self):
         return f'{self.name}: {self.value}'
     
     def getValue(self):
@@ -64,7 +64,7 @@ class RandomVariable(Variable):
         self.value = random.randint(a, b)
         return f'{self.value}\n'
 
-    def toString(self):
+    def __str__(self):
         return f'{self.name}: [{self.interval[0]}, {self.interval[1]}]'
 
 
@@ -87,5 +87,5 @@ class RandomArray(TestItem):
         
         return res + '\n'
 
-    def toString(self):
+    def __str__(self):
         return f'Array len {self.var.getValue()} vals {self.interval}'

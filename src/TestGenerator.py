@@ -11,6 +11,9 @@ class Test:
     def getName(self):
         return self.name
 
+    def setName(self, name):
+        self.name = name
+
     def addItem(self, testItem):
         self.testItems.append(testItem)
 
@@ -24,6 +27,13 @@ class Test:
         res = ""
         for ti in self.testItems:
             res += ti.generate()
+
+        return res
+    
+    def __str__(self):
+        res = ""
+        for ti in self.testItems:
+            res += ti.__str__()
 
         return res
 
