@@ -10,8 +10,9 @@ class TestItem:
 
 
 class RepeatContainer(TestItem):
-    def __init__(self, var):
+    def __init__(self, name, var):
         self.var = var
+        self.name = name
         self.testItems = []
 
     def addItem(self, testItem):
@@ -25,8 +26,8 @@ class RepeatContainer(TestItem):
 
         return res
 
-    def toString():
-        res = "Repeat:\n"
+    def toString(self):
+        res = f"Repeat (self.name):\n"
         for _ in range(self.var.getValue()):
             for ti in self.testItems:
                 res += ti.toString()
