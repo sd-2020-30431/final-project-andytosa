@@ -31,7 +31,7 @@ class Test:
         return res
     
     def __str__(self):
-        res = ""
+        res = self.name + ':\n'
         for ti in self.testItems:
             res += ti.__str__()
 

@@ -17,6 +17,9 @@ class RepeatContainer(TestItem):
 
     def addItem(self, testItem):
         self.testItems.append(testItem)
+    
+    def getName(self):
+        return self.name
 
     def generate(self):
         res = ""
@@ -30,9 +33,9 @@ class RepeatContainer(TestItem):
         res = f"Repeat (self.name):\n"
         for _ in range(self.var.getValue()):
             for ti in self.testItems:
-                res += ti.__str__()
+                res += '\t' + ti.__str__()
 
-        return res
+        return res + '\n'
 
 
 
@@ -45,10 +48,13 @@ class Variable(TestItem):
         return f'{self.value}\n'
 
     def __str__(self):
-        return f'{self.name}: {self.value}'
+        return f'{self.name}: {self.value}\n'
     
     def getValue(self):
         return self.value
+
+    def getName(self):
+        return self.name
 
 
 
@@ -65,7 +71,7 @@ class RandomVariable(Variable):
         return f'{self.value}\n'
 
     def __str__(self):
-        return f'{self.name}: [{self.interval[0]}, {self.interval[1]}]'
+        return f'{self.name}: [{self.interval[0]}, {self.interval[1]}]\n'
 
 
 
