@@ -23,15 +23,22 @@ class MainWindow(tk.Frame):
         self.nr_entry.pack()
         button_gen.pack()
 
-
+        
+        # Container Select
+        self.repeaters = [self.generator.test_obj] + self.generator.test_obj.repeaters
+        r_names = [x.getName() for x in self.repeaters]
+        self.r_var = tk.StringVar()
+        self.r_menu = tk.OptionMenu(self, self.var, *r_names)
 
         # Add TestItems buttons
         button_rv = tk.Button(self, text="Add r_var", command=lambda: self.open_dialog(RVariableDialog))
         button_ra = tk.Button(self, text="Add r_arr", command=lambda: self.open_dialog(RArrayDialog))
+        button_rc = tk.Button(self, text="Add r_cnt", command=lambda: self.open_dialog(RContainerDialog))
         self.test_label = tk.Label(self, width=80)
 
         button_rv.pack()
         button_ra.pack()
+        button_rc.pack()
         self.test_label.pack(side="top", fill="x")
 
 
@@ -46,6 +53,11 @@ class MainWindow(tk.Frame):
         if isinstance(result, TestItem):
             self.generator.addItem(result)
             self.test_label.config(text=self.generator.test_obj.__str__())
+
+            if isinstance(result, RepeatContainer):
+                self.repeaters = [self.generator.test_obj] + self.generator.test_obj.repeaters
+                r_names = [x.getName() for x in self.repeaters]
+                self.r_menu.config(value=*r_names)
         else:
             pass
 

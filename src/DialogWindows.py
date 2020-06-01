@@ -83,4 +83,40 @@ class RArrayDialog(TIDialog):
         return self.testItem
 
 
+class RContainerDialog(TIDialog):
+    def __init__(self, parent, test_obj):
+        super().__init__(parent, test_obj)
+        
+        self.var_list = test_obj.variables
+
+        var_names = [var.getName() for var in self.var_list]
+
+        label = tk.Label(self.toplevel, text="name, var")
+        self.name_entry = tk.Entry(self.toplevel, width=15)
+        self.var = tk.StringVar()
+        self.opt_menu = tk.OptionMenu(self.toplevel, self.var, *var_names)
+        button = tk.Button(self.toplevel, text="OK", command=self.destroyWindow)
+
+        label.pack(side="top", fill="x")
+        self.name_entry.pack()
+        self.opt_menu.pack()
+        button.pack()
+
+    def destroyWindow(self):
+        name = self.name_entry.get()
+        var_name = self.var.get()
+        
+        var = [x for x in self.var_list if x.getName() == var_name][0]
+
+        self.testItem = RepeatContainer(name, var)
+
+        self.toplevel.destroy()
+        
+
+    def returnTestItem(self):
+        self.toplevel.deiconify()
+        self.toplevel.wait_window()
+
+        return self.testItem
+
 

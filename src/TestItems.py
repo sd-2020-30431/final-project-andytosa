@@ -30,7 +30,7 @@ class RepeatContainer(TestItem):
         return res
 
     def __str__(self):
-        res = f"Repeat (self.name):\n"
+        res = f"Repeat ({self.name} {self.var.getName()}):\n"
         for _ in range(self.var.getValue()):
             for ti in self.testItems:
                 res += '\t' + ti.__str__()
@@ -94,4 +94,4 @@ class RandomArray(TestItem):
         return res + '\n'
 
     def __str__(self):
-        return f'Array len {self.var.getValue()} vals {self.interval}'
+        return f'Array var {self.var.getName()} vals {self.interval}'
